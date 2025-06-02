@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkspotify_app=self.webpackChunkspotify_app||[]).push([[833],{1833:(s,e,p)=>{p.r(e),p.d(e,{default:()=>i}),p(6540);var t=p(7767),a=p(4848);const i=function(){return(0,a.jsxs)("div",{children:["Sidebar",(0,a.jsx)(t.sv,{})]})}}}]);
+//# sourceMappingURL=833.js.map?ver=4b2cca02e716240b4477

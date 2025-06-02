@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkspotify_app=self.webpackChunkspotify_app||[]).push([[635],{3635:(s,e,t)=>{t.r(e),t.d(e,{default:()=>i}),t(6540);var a=t(7767),p=t(4848);const i=()=>{const{id:s}=(0,a.g)();return(0,p.jsxs)("div",{children:["PlayListDetailPage: ",s]})}}}]);
+//# sourceMappingURL=635.js.map?ver=4b2cca02e716240b4477
