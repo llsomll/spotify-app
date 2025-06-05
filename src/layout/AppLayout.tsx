@@ -3,8 +3,9 @@ import React from 'react'
 import { Outlet, NavLink } from 'react-router-dom'
 import HomeIcon from '@mui/icons-material/Home';
 import SearchIcon from '@mui/icons-material/Search';
-import LibraryHead from '../common/components/LibraryHead'
-import Library from '../common/components/Library'
+import LibraryHead from './components/LibraryHead'
+import Library from './components/Library'
+import Navbar from './components/Navbar';
 
 const Layout = styled("div")({
   display: "flex",
@@ -12,17 +13,17 @@ const Layout = styled("div")({
   padding: "8px"
 });
 
-const Sidebar = styled("div")(({theme})=>({
+const Sidebar = styled("div")(({ theme }) => ({
   width: "331px",
   height: "100%", // 100vh because parent is 100vh
   display: "flex",
   flexDirection: "column",
-  [theme.breakpoints.down("sm")]:{
+  [theme.breakpoints.down("sm")]: {
     display: "none"
   }
 }));
 
-const ContentBox = styled(Box)(({theme})=>({
+const ContentBox = styled(Box)(({ theme }) => ({
   borderRadius: "8px",
   backgroundColor: theme.palette.background.paper,
   color: theme.palette.text.primary,
@@ -38,7 +39,7 @@ const NavList = styled("ul")({
   margin: 0
 });
 
-const StyledNavLink = styled(NavLink)(({theme})=>({
+const StyledNavLink = styled(NavLink)(({ theme }) => ({
   textDecoration: "none",
   display: "flex",
   alignItems: "center",
@@ -51,7 +52,7 @@ const StyledNavLink = styled(NavLink)(({theme})=>({
   "&:active": {
     color: theme.palette.text.primary,
   },
-  "&:focus": {
+  "&.active": {
     color: theme.palette.text.primary,
   },
 }));
@@ -59,27 +60,28 @@ const StyledNavLink = styled(NavLink)(({theme})=>({
 function AppLayout() {
   return (
     <Layout>
-      <div>
-        <Sidebar>
-          <ContentBox>
-            <NavList>
-              <StyledNavLink to="/">
-                <HomeIcon/>
-                <Typography variant="h2" fontWeight={700}>Home</Typography>
-              </StyledNavLink>
-              <StyledNavLink to="/search">
-                <SearchIcon/>
-                <Typography variant="h2" fontWeight={700}>Search</Typography>
-              </StyledNavLink>
-            </NavList>
-          </ContentBox>
-          <ContentBox>
-            <LibraryHead />
-            <Library />
-          </ContentBox>
-        </Sidebar>
-      </div>
+      <Sidebar>
+        <ContentBox>
+          <NavList>
+            <StyledNavLink to="/">
+              <HomeIcon />
+              <Typography variant="h2" fontWeight={700}>Home</Typography>
+            </StyledNavLink>
+            <StyledNavLink to="/search">
+              <SearchIcon />
+              <Typography variant="h2" fontWeight={700}>Search</Typography>
+            </StyledNavLink>
+          </NavList>
+        </ContentBox>
+        <ContentBox>
+          <LibraryHead />
+          <Library />
+        </ContentBox>
+      </Sidebar>
+      <ContentBox>
+        <Navbar />
         <Outlet />
+      </ContentBox>
     </Layout>
   )
 }
