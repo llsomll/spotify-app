@@ -19,7 +19,6 @@ const queryClient = new QueryClient({
   },
 });
 
-
 root.render(
   <React.StrictMode>
     <BrowserRouter>
@@ -27,7 +26,7 @@ root.render(
         <CssBaseline />
         <QueryClientProvider client = {queryClient}>
           <App />
-        </QueryClientProvider>
+          </QueryClientProvider>        
       </ThemeProvider>
     </BrowserRouter>
   </React.StrictMode>
