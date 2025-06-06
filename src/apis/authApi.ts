@@ -13,7 +13,7 @@ const encodedBase64 = (data:string):string => {
 
 // const encodedBase64 = (data: string): string => btoa(data);
 
-export const getclientCredentialToken = async (): Promise<ClientCredentialTokenResponse> => {
+export const getClientCredentialToken = async (): Promise<ClientCredentialTokenResponse> => {
     try {
         const body = new URLSearchParams({
             grant_type: "client_credentials"
