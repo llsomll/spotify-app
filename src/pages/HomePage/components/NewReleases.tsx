@@ -14,7 +14,7 @@ const NewReleases = () => {
     }
     return (
         <div>
-            <Typography variant="h1" paddingTop="8px">New Released Albums</Typography>
+            <Typography variant="h1" paddingTop="8px" marginBottom="8px">New Released Albums</Typography>
             {data && data.albums.items.length > 0 ? (
                 <Grid container spacing={2}>
                     {data.albums.items.map((album) => (
