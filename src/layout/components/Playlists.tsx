@@ -34,10 +34,10 @@ const Playlists = ({ playlists }: PlaylistsProps) => {
                 display="flex"
                 alignItems="center"
                 justifyContent="center"
-                bgcolor="grey.200"
-                color="grey.600"
+                bgcolor="grey.900"
+                color="grey.500"
               >
-                <MusicNoteIcon fontSize="medium" />
+                <MusicNoteIcon fontSize="large" />
               </Box>
             )}
             <Box>
