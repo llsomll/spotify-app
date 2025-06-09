@@ -36,6 +36,7 @@ export const getClientCredentialToken = async (): Promise<ClientCredentialTokenR
 export const exchangeToken = async (code:string, codeVerifier:string): Promise<ExchangeTokenResponse> => {
     try {
         const url = "https://accounts.spotify.com/api/token";
+        
         if ( CLIENT_ID && REDIRECT_URI) {
             const body = new URLSearchParams({
                 client_id: CLIENT_ID,
@@ -48,13 +49,13 @@ export const exchangeToken = async (code:string, codeVerifier:string): Promise<E
             const response = await axios.post(url, body, {
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded", 
-                },
+                }
             });
             return response.data;
         } else {
             throw new Error("Missing required parameters: CLIENT_ID or REDIRECT_URI");
         }
-    } catch (error) {
+    } catch (error: any) {
         throw new Error("Failed to fetch token");
     }
 };
