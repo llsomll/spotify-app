@@ -26,11 +26,16 @@ function App() {
   const urlParams = new URLSearchParams(window.location.search);
   let code = urlParams.get("code");
   const codeVerifier = localStorage.getItem("code_verifier");
-  const {mutate: exchangeToken} = useExchangeToken();
+  const { mutate: exchangeToken } = useExchangeToken();
 
   useEffect(() => {
     if (code && codeVerifier) {
       exchangeToken({ code, codeVerifier });
+
+      // Prevent reusing the code on page reload
+      const url = new URL(window.location.href);
+      url.searchParams.delete("code");
+      window.history.replaceState({}, document.title, url.toString());
     }
   }, [code, codeVerifier, exchangeToken]);
 

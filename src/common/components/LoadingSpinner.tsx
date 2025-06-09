@@ -6,7 +6,7 @@ import theme from '../../theme';
 const LoadingSpinner = () => {
   return (
     <div
-      style={{ display: "flex", justifyContent: "center", alignItems: "center", padding: "100px" }}
+      style={{ display: "flex", justifyContent: "center", alignItems: "center"}}
     >
       <Spinner animation="border" style={{ width: '5rem', height: '5rem', color: theme.palette.primary.main  }} />
     </div>
