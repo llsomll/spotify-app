@@ -1,30 +1,48 @@
 import React from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, ListItemButton } from "@mui/material";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { SimplifiedPlaylistObject } from "../../models/playlist";
-import MusicNoteIcon from '@mui/icons-material/MusicNote';
+import MusicNoteIcon from "@mui/icons-material/MusicNote";
 
 type PlaylistsProps = {
   playlists: SimplifiedPlaylistObject[];
 };
 
 const Playlists = ({ playlists }: PlaylistsProps) => {
+  const navigate = useNavigate();
+  const handleClick = (id: string) => {
+    navigate("/playlist/${id}");
+  };
+
   return (
-    <Box display="flex" flexDirection="column" gap={2}>
+    <Box display="flex" flexDirection="column" gap={1}>
       {playlists.map((playlist) => {
         const imageUrl = playlist.images?.[0]?.url;
         return (
-          <Box
+          <ListItemButton
             key={playlist.id}
-            display="flex"
-            flexDirection="row"
-            gap={2}
-            alignItems="center"
+            component={NavLink}
+            to={`/playlist/${playlist.id}`}
+            sx={{
+              borderRadius: 1,
+              gap: 2,
+              color: "text.secondary",
+              "&.active": {
+                backgroundColor: "action.selected",
+                color: "primary.main",
+              },
+            }}
           >
             {imageUrl ? (
               <img
                 src={imageUrl}
                 alt={playlist.name}
-                style={{ width: "50px", height: "50px", borderRadius: "8px" }}
+                style={{
+                  width: 50,
+                  height: 50,
+                  borderRadius: 8,
+                  objectFit: "cover",
+                }}
               />
             ) : (
               <Box
@@ -42,16 +60,15 @@ const Playlists = ({ playlists }: PlaylistsProps) => {
             )}
             <Box>
               <Typography variant="h2">{playlist.name}</Typography>
-              <Typography variant="body2" color="textSecondary">
+              <Typography variant="body2" color="text.secondary">
                 Playlist · {playlist.owner.display_name}
               </Typography>
             </Box>
-          </Box>
+          </ListItemButton>
         );
       })}
     </Box>
   );
 };
-
 
 export default Playlists;
