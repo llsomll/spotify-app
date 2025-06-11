@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import EmptyPlayList from "./EmptyPlayList";
 import useGetCurrentUserPlaylists from "../../hooks/useGetCurrentUserPlaylists";
-import { Typography, Box, styled } from "@mui/material";
+import { Typography, Box, styled, Button } from "@mui/material";
 import Playlists from "./Playlists";
 import LoadingSpinner from "../../common/components/LoadingSpinner";
 import ErrorMessage from "../../common/components/ErrorMessage";
@@ -68,10 +68,10 @@ const Library = () => {
             },
           }}
         >
-          {data?.pages.map((page, index) => (
-            <Playlists key={index} playlists={page.items} />
-          ))}
-          <div ref={ref}>{isFetchingNextPage && <LoadingSpinner />}</div>
+            {data?.pages.map((page, index) => (
+              <Playlists key={index} playlists={page.items} />
+            ))}
+            <div ref={ref}>{isFetchingNextPage && <LoadingSpinner />}</div>
         </Box>
       )}
     </PlaylistContainer>
