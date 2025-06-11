@@ -11,9 +11,9 @@ const DefaultImage = styled(Box)(({ theme }) => ({
   maxWidth: 240,        
   boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
 
-  [theme.breakpoints.down("md")]: {
-    maxWidth: "100%"
-  },
+//   [theme.breakpoints.down("md")]: {
+//     maxWidth: 160,
+//   },
 }));
 
 export default DefaultImage;

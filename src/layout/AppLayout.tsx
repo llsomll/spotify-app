@@ -28,7 +28,7 @@ const ContentBox = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
   color: theme.palette.text.primary,
   width: "100%",
-  padding: "8px",
+  padding: "10px",
   marginBottom: "8px",
   marginRight: "8px",
 }));

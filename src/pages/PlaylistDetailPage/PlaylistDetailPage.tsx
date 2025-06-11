@@ -23,9 +23,10 @@ const AlbumImage = styled("img")(({ theme }) => ({
   borderRadius: "8px",
   height: "auto",
   width: "100%",
+  maxWidth: 240,
 
   [theme.breakpoints.down("md")]: {
-    fontSize: "1rem",
+    fontSize: "2rem",
   },
 }));
 
@@ -34,7 +35,7 @@ const ResponsiveTypography = styled(Typography)(({ theme }) => ({
   textAlign: "left",
 
   [theme.breakpoints.down("md")]: {
-    fontSize: "1rem",
+    fontSize: "2rem",
   },
 }));
 
