@@ -20,6 +20,8 @@ import DesktopPlaylistItem from "../../layout/components/DesktopPlaylistItem";
 import { PAGE_LIMIT } from "../../configs/commonConfig";
 import { useInView } from "react-intersection-observer";
 import LoadingSpinner from "../../common/components/LoadingSpinner";
+import LoginButton from "../../common/components/LoginButton";
+import ErrorMessage from "../../common/components/ErrorMessage";
 
 const PlaylistHeader = styled(Grid)({
   display: "flex",
@@ -72,7 +74,9 @@ const StyledTableContainer = styled(TableContainer)(({ theme }) => ({
 const PlayListDetailPage = () => {
   const { id } = useParams<{ id: string }>();
   if (id === undefined) return <Navigate to="/" />;
-  const { data: playlist } = useGetPlaylist({ playlist_id: id });
+  const { data: playlist, error } = useGetPlaylist({
+    playlist_id: id,
+  });
 
   const {
     data: playlistItems,
@@ -90,6 +94,25 @@ const PlayListDetailPage = () => {
       fetchNextPage();
     }
   }, [inView]);
+
+  const status = (error as any)?.status ?? (playlistItemsError as any)?.status;
+
+  if (status === 401) {
+    return (
+      <Box
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        height="100%"
+        flexDirection="column"
+      >
+        <Typography variant="h2" fontWeight={700} mb="20px">
+          Please log in again
+        </Typography>
+        <LoginButton />
+      </Box>
+    );
+  }
 
   return (
     <div>
