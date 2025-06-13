@@ -1,14 +1,31 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import useGetPlaylist from "../../hooks/useGetPlaylist";
-import { Box, GridLegacy as Grid, styled, Typography } from "@mui/material";
+import {
+  Box,
+  GridLegacy as Grid,
+  styled,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+} from "@mui/material";
 import MusicNoteIcon from "@mui/icons-material/MusicNote";
 import DefaultImage from "../../common/components/DefaultImage";
+import useGetPlaylistItems from "../../hooks/useGetPlaylistItems";
+import DesktopPlaylistItem from "../../layout/components/DesktopPlaylistItem";
+import { PAGE_LIMIT } from "../../configs/commonConfig";
+import { useInView } from "react-intersection-observer";
+import LoadingSpinner from "../../common/components/LoadingSpinner";
 
 const PlaylistHeader = styled(Grid)({
   display: "flex",
   alignItems: "center",
   padding: "16px",
+  marginBottom: "10px",
 });
 
 const ImageGrid = styled(Grid)(({ theme }) => ({
@@ -39,12 +56,40 @@ const ResponsiveTypography = styled(Typography)(({ theme }) => ({
   },
 }));
 
+const StyledTableContainer = styled(TableContainer)(({ theme }) => ({
+  background: theme.palette.background.paper,
+  color: theme.palette.common.white,
+  height: "calc(100vh - 320px)",
+  borderRadius: "8px",
+  overflowY: "auto",
+  "&::-webkit-scrollbar": {
+    display: "none",
+  },
+  msOverflowStyle: "none", // IE and Edge
+  scrollbarWidth: "none", // Firefox
+}));
+
 const PlayListDetailPage = () => {
   const { id } = useParams<{ id: string }>();
   if (id === undefined) return <Navigate to="/" />;
   const { data: playlist } = useGetPlaylist({ playlist_id: id });
 
-  console.log("ddd", playlist);
+  const {
+    data: playlistItems,
+    isLoading: isPlaylistItemsLoading,
+    error: playlistItemsError,
+    hasNextPage,
+    isFetchingNextPage,
+    fetchNextPage,
+  } = useGetPlaylistItems({ playlist_id: id, limit: PAGE_LIMIT, offset: 0 });
+
+  const [ref, inView] = useInView();
+
+  useEffect(() => {
+    if (inView && hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
+    }
+  }, [inView]);
 
   return (
     <div>
@@ -88,6 +133,41 @@ const PlayListDetailPage = () => {
           </Box>
         </Grid>
       </PlaylistHeader>
+      {playlist?.tracks?.total === 0 ? (
+        <Typography> Search </Typography>
+      ) : (
+        <StyledTableContainer>
+          <Table>
+            <TableHead>
+              <TableRow sx={{ height: "5px" }}>
+                <TableCell>#</TableCell>
+                <TableCell>Title</TableCell>
+                <TableCell>Album</TableCell>
+                <TableCell>Date added</TableCell>
+                <TableCell>Duration</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {playlistItems?.pages.map((page, pageIndex) =>
+                page.items.map((item, itemIndex) => {
+                  return (
+                    <DesktopPlaylistItem
+                      item={item}
+                      key={pageIndex * PAGE_LIMIT + itemIndex + 1}
+                      index={pageIndex * PAGE_LIMIT + itemIndex + 1}
+                    />
+                  );
+                })
+              )}
+              <TableRow ref={ref}>
+                <TableCell colSpan={5} align="center">
+                  {isFetchingNextPage && <LoadingSpinner />}
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </StyledTableContainer>
+      )}
     </div>
   );
 };
