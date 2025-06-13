@@ -11,3 +11,4 @@ export const getCurrentUserPlaylists = async ({limit, offset}: GetCurrentUserPla
         throw new Error("Failed to fetch current user playlists");
     }
 }
+
