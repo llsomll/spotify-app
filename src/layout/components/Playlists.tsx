@@ -1,11 +1,11 @@
 import React from "react";
 import { Box, Typography, ListItemButton } from "@mui/material";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import { SimplifiedPlaylistObject } from "../../models/playlist";
+import { SimplifiedPlaylist } from "../../models/playlist";
 import MusicNoteIcon from "@mui/icons-material/MusicNote";
 
 type PlaylistsProps = {
-  playlists: SimplifiedPlaylistObject[];
+  playlists: SimplifiedPlaylist[];
 };
 
 const Playlists = ({ playlists }: PlaylistsProps) => {

@@ -26,7 +26,7 @@ export interface PlaylistTrack {
 
 
 export type GetCurrentUserPlaylistResponse =
-  ApiResponse<SimplifiedPlaylistObject>;
+  ApiResponse<SimplifiedPlaylist>;
 
 // SimplifiedPlaylist tracks
 // Playlist tracks followers
@@ -44,7 +44,7 @@ export interface BasePlaylist {
   type?: "playlist";
   uri?: string;
 }
-export interface SimplifiedPlaylistObject extends BasePlaylist {
+export interface SimplifiedPlaylist extends BasePlaylist {
   tracks?: {
     href?: string;
     total?: number;
