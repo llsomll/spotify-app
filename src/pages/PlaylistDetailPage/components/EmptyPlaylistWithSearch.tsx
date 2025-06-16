@@ -46,7 +46,12 @@ const SearchContainer = styled(Box)({
   scrollbarWidth: "none", // Firefox
 });
 
-const EmptyPlaylistWithSearch = () => {
+
+interface EmptyPlaylistWithSearchProps {
+  playlistId: string;
+}
+
+const EmptyPlaylistWithSearch = ({ playlistId }: EmptyPlaylistWithSearchProps) => {
   const [keyword, setKeyword] = useState<string>("");
   const {
     data,
@@ -98,6 +103,7 @@ const EmptyPlaylistWithSearch = () => {
         ) : hasResults ? (
           <SearchResultList
             list={tracks}
+            playlistId={playlistId}
             hasNextPage={hasNextPage}
             isFetchingNextPage={isFetchingNextPage}
             fetchNextPage={fetchNextPage}

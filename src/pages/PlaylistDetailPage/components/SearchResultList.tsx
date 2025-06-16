@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import { useInView } from "react-intersection-observer";
 import LoadingSpinner from "../../../common/components/LoadingSpinner";
+import useAddTrackToPlaylist from "../../../hooks/useAddPlaylist";
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   width: "100%",
@@ -56,7 +57,8 @@ const SearchResultList = ({
   hasNextPage,
   isFetchingNextPage,
   fetchNextPage,
-}: SearchResultListProps) => {
+  playlistId,
+}: SearchResultListProps & { playlistId: string }) => {
   const [ref, inView] = useInView();
 
   useEffect(() => {
@@ -64,6 +66,14 @@ const SearchResultList = ({
       fetchNextPage();
     }
   }, [inView, hasNextPage, isFetchingNextPage]);
+
+  const { mutate: addTrack } = useAddTrackToPlaylist(playlistId, () => {
+    console.log("Track added");
+  });
+
+  const handleAddTrack = (trackId: string) => {
+    addTrack(trackId);
+  };
 
   return (
     <StyledTableContainer>
@@ -86,14 +96,17 @@ const SearchResultList = ({
               </TableCell>
               <TableCell>{track.album?.name}</TableCell>
               <TableCell>
-                <Button>Add</Button>
+                {track.id && (
+                  <Button onClick={() => handleAddTrack(track.id!)}>Add</Button>
+                )}
               </TableCell>
             </StyledTableRow>
           ))}
-          <div ref={ref} style={{ height: 1 }}>
-            {" "}
-            {isFetchingNextPage && <LoadingSpinner />}
-          </div>
+          <TableRow>
+            <TableCell colSpan={3} align="center">
+              {isFetchingNextPage && <LoadingSpinner />}
+            </TableCell>
+          </TableRow>
         </TableBody>
       </Table>
     </StyledTableContainer>
