@@ -78,3 +78,10 @@ export interface CreatePlaylistRequest {
     collaborative?: boolean;
     description?: string;
 }
+
+
+export interface AddTrackToPlaylistParams {
+  playlist_id: string;
+  track_uri: string;
+  position?: number;
+}
